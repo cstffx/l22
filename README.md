@@ -5,7 +5,7 @@ Sistema de diseño UI para SolidJS: componentes accesibles (basados en Kobalte) 
 ## Instalación
 
 ```bash
-npm install l22 solid-js @solidjs/web
+npm install @cstffx/l22 solid-js @solidjs/web
 ```
 
 `solid-js` y `@solidjs/web` son peer dependencies (`^2.0.3`) y deben instalarse en el proyecto que consume la librería.
@@ -17,8 +17,8 @@ El proyecto consumidor necesita el plugin de Solid para compilar JSX (`@solidjs/
 Importa los estilos una sola vez, en el punto de entrada de la aplicación:
 
 ```tsx
-import 'l22/l22.css';
-import { Button } from 'l22';
+import '@cstffx/l22/l22.css';
+import { Button } from '@cstffx/l22';
 
 export function Guardar() {
   return <Button variant="primary">Guardar</Button>;
