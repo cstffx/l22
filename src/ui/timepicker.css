@@ -1,0 +1,50 @@
+/* TimePicker — columnas desplazables de horas / minutos */
+.ui-timepicker { display: flex; gap: 4px; height: 208px; padding: 4px; color: var(--ink); }
+.ui-timepicker-col { display: flex; flex-direction: column; gap: 1px; flex: none; position: relative; width: max-content; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.ui-timepicker-col::-webkit-scrollbar { display: none; }
+.ui-timepicker-item {
+	flex: none;
+	height: 26px;
+	padding: 0 10px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--ink);
+	font: inherit;
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+	cursor: pointer;
+	transition: background-color 120ms;
+}
+.ui-timepicker-item:hover { background: var(--hover-2); }
+.ui-timepicker-item[data-selected] { background: var(--accent); color: #fff; }
+.ui-timepicker-item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* TimePicker (reloj) */
+.ui-timedial { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 232px; padding: 8px; color: var(--ink); user-select: none; }
+.ui-timedial[data-disabled] { opacity: 0.55; pointer-events: none; }
+.ui-timedial-head { display: flex; align-items: center; gap: 2px; font-variant-numeric: tabular-nums; }
+.ui-timedial-seg { padding: 2px 6px; border: 0; border-radius: 6px; background: transparent; color: var(--ink-3); font: inherit; font-size: 28px; font-weight: 700; line-height: 1; cursor: pointer; }
+.ui-timedial-seg[data-active] { background: var(--hover-2); color: var(--accent); }
+.ui-timedial-colon { font-size: 26px; font-weight: 700; color: var(--ink-3); }
+.ui-timedial-ampm { display: flex; flex-direction: column; gap: 2px; margin-inline-start: 8px; }
+.ui-timedial-ampm button { padding: 2px 8px; border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; color: var(--ink-3); font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; }
+.ui-timedial-ampm button[data-active] { border-color: var(--accent); background: var(--accent); color: #fff; }
+.ui-timedial-dial { display: block; width: 100%; height: auto; aspect-ratio: 1; touch-action: none; cursor: pointer; outline: none; }
+.ui-timedial-dial:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 50%; }
+.ui-timedial-face { fill: var(--hover-2); }
+.ui-timedial-hand { stroke: var(--accent); stroke-width: 2; }
+.ui-timedial-hub, .ui-timedial-knob { fill: var(--accent); }
+.ui-timedial-knob { opacity: 0.9; }
+.ui-timedial-num { font-family: inherit; font-size: 13px; fill: var(--ink); pointer-events: none; }
+.ui-timedial-num[data-inner] { font-size: 11px; fill: var(--ink-3); }
+.ui-timedial-num[data-active] { fill: #fff; font-weight: 700; }
+.ui-timedial-footer { display: flex; justify-content: center; width: 100%; padding-top: 6px; border-top: 1px solid var(--line-strong); }
+.ui-timedial-now { padding: 4px 14px; border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; color: var(--accent); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
+.ui-timedial-now:hover { background: var(--hover-2); }
+
+.ui-timepicker-actions { display: flex; justify-content: center; gap: 6px; padding: 6px 4px 2px; }
+.ui-timepicker-action { padding: 4px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; color: var(--ink); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
+.ui-timepicker-action:hover:not(:disabled) { background: var(--hover-2); }
+.ui-timepicker-action[data-variant='primary'] { border-color: var(--accent); background: var(--accent); color: #fff; }
+.ui-timepicker-action:disabled { opacity: 0.4; cursor: default; }

@@ -1,0 +1,28 @@
+/* Form — filas de dos columnas (etiqueta | control) separadas por una línea, como en Linear */
+.ui-form { container-type: inline-size; display: flex; flex-direction: column; width: 100%; color: var(--ink); }
+.ui-form-field {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, var(--form-control-w, 240px));
+	align-items: start;
+	gap: 8px 24px;
+	padding: 12px 0;
+}
+.ui-form-field + .ui-form-field { border-top: 1px solid var(--line); }
+.ui-form-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ui-form-label { display: flex; align-items: center; min-height: 32px; font-size: 13px; font-weight: 500; color: var(--ink); }
+.ui-form-text .ui-form-label:not(:last-child) { min-height: 20px; }
+.ui-form-description { font-size: 12px; line-height: 1.4; color: var(--ink-3); }
+
+/* los controles ocupan la columna derecha; los pequeños (switch, checkbox) se alinean a su borde derecho */
+.ui-form-control { display: flex; flex-direction: column; align-items: stretch; gap: 4px; min-width: 0; }
+.ui-form-control > .ui-switch, .ui-form-control > .ui-checkbox { align-self: flex-end; min-height: 32px; align-items: center; }
+.ui-form-error { font-size: 12px; color: var(--red); }
+
+/* secciones con título */
+.ui-form-section + .ui-form-section { margin-top: 20px; }
+.ui-form-section-title { margin: 0; padding-bottom: 6px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-3); }
+
+@container (max-width: 480px) {
+	.ui-form-field { grid-template-columns: minmax(0, 1fr); }
+	.ui-form-label { min-height: 0; }
+}

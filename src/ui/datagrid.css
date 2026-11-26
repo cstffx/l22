@@ -1,0 +1,160 @@
+/* DataGrid — tabla estilo hoja de cálculo con propiedades como columnas (beautiful-ui) */
+.ui-dg-shell { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; min-height: 0; border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-card); overflow: hidden; color: var(--ink); font-size: 13px; }
+/* `overflow-anchor: none`, como svgrid: el virtualizador cambia la altura del espaciador superior al deslizar la ventana, y con el
+ * anclaje del navegador activo este reajustaría `scrollTop` por su cuenta, disparando otro scroll en bucle. */
+.ui-dg-scroll { contain: layout paint; overflow: auto; overscroll-behavior: contain; overflow-anchor: none; max-height: var(--dg-max-height, 520px); outline: none; scrollbar-width: none; }
+.ui-dg-scroll::-webkit-scrollbar { display: none; }
+/* Barras propias: son las únicas visibles; el área con scroll sigue desplazándose de forma nativa. */
+.ui-dg-vbar { grid-column: 2; grid-row: 1; }
+.ui-dg-hbar { grid-column: 1; grid-row: 2; }
+.ui-dg-corner { grid-column: 2; grid-row: 2; background: var(--sg-scrollbar-bg); }
+.ui-dg-table { border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+
+.ui-dg-th { box-sizing: border-box; position: sticky; top: 0; z-index: 2; height: var(--dg-head-h, 35px); padding: 0; text-align: left; font-weight: 500; color: var(--ink-2); background: var(--surface); border-bottom: 1px solid var(--line-strong); border-right: 1px solid var(--line); }
+
+.ui-dg-head-btn { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 8px; width: 100%; height: calc(var(--dg-head-h, 35px) - 1px); padding: 0 12px; cursor: pointer; transition: background-color 100ms; }
+.ui-dg-head-btn:hover, .ui-dg-head-btn[data-expanded] { background: var(--hover); color: var(--ink); }
+.ui-dg-head-btn:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+.ui-dg-head-icon { display: inline-flex; color: var(--ink-3); flex: none; }
+.ui-dg-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.ui-dg-sort { margin-left: auto; display: inline-flex; padding: 3px; border-radius: 5px; color: var(--ink-3); opacity: 0; transition: opacity 100ms, transform 150ms; cursor: pointer; }
+.ui-dg-head-btn:hover .ui-dg-sort, .ui-dg-sort.is-active, .ui-dg-sort:focus-visible { opacity: 1; }
+.ui-dg-sort.is-active { color: var(--ink); }
+.ui-dg-sort:hover { background: var(--hover-2); }
+
+.ui-dg-resize { position: absolute; top: 0; right: -3px; bottom: 0; width: 7px; cursor: col-resize; z-index: 4; touch-action: none; }
+.ui-dg-resize::after { content: ""; position: absolute; top: 6px; bottom: 6px; left: 3px; width: 2px; border-radius: 1px; background: var(--accent); opacity: 0; transition: opacity 100ms; }
+.ui-dg-resize:hover::after, .ui-dg-resize.is-resizing::after { opacity: 1; }
+
+
+.ui-dg-td { box-sizing: border-box; height: var(--dg-row-h, 35px); padding: 0 12px; background: var(--surface); border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; vertical-align: middle; }
+.ui-dg-row:hover .ui-dg-td { background: var(--hover); }
+.ui-dg-row.is-selected .ui-dg-td { background: color-mix(in oklch, var(--accent) 8%, var(--surface)); }
+.ui-dg-muted { color: var(--ink-3); }
+
+.ui-dg-rowslot { display: grid; flex: none; width: 18px; height: 20px; align-items: center; justify-items: end; }
+.ui-dg-rowslot > * { grid-area: 1 / 1; }
+.ui-dg-rownum { text-align: right; font-size: 11.5px; line-height: 20px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.ui-dg-rowcheck { display: inline-flex; }
+/* con número y checkbox a la vez, comparten el mismo hueco: el checkbox reemplaza al número en hover/selección */
+.ui-dg-rowslot.is-swap .ui-dg-rowcheck { visibility: hidden; }
+.ui-dg-row:hover .ui-dg-rowslot.is-swap .ui-dg-rownum, .ui-dg-row.is-selected .ui-dg-rowslot.is-swap .ui-dg-rownum { visibility: hidden; }
+.ui-dg-row:hover .ui-dg-rowslot.is-swap .ui-dg-rowcheck, .ui-dg-row.is-selected .ui-dg-rowslot.is-swap .ui-dg-rowcheck { visibility: visible; }
+
+/* checkbox propio, compacto, con estado mixto */
+.ui-dg-check { position: relative; display: inline-flex; flex: none; cursor: pointer; }
+.ui-dg-check input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.ui-dg-check-box { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 5px; box-shadow: 0 0 0 1px var(--line-strong); background: var(--surface); color: transparent; transition: background-color 100ms, box-shadow 100ms; }
+.ui-dg-check-box.is-active { background: var(--accent); box-shadow: none; color: #fff; }
+.ui-dg-check input:focus-visible + .ui-dg-check-box { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ui-dg-dash { width: 8px; height: 2px; border-radius: 1px; background: currentColor; }
+
+/* tags */
+
+
+
+/* pie: cálculos */
+.ui-dg-tf .ui-dg-td { position: sticky; bottom: 0; z-index: 2; height: var(--dg-row-h, 35px); border-bottom: 0; border-top: 1px solid var(--line-strong); background: var(--surface); font-size: 12.5px; color: var(--ink-2); }
+
+/* popover de propiedad */
+
+/* virtualización */
+.ui-dg-row { height: var(--dg-row-h, 35px); }
+/*
+ * rowLayout="flex": filas flex de celdas de ancho fijo (el ancho sale de --dg-w-* en la tabla). Cabecera y pie pasan a ser
+ * sticky ellos mismos, porque un th/td sticky no sale de su fila. Las filas del cuerpo van `position: relative` y sin
+ * `contain`: así cada fila es su propia capa de pintado y el navegador reutiliza la de las que no cambian, y no se crea
+ * una isla de layout por fila que el compositor tenga que volver a ordenar en cada frame. Sin z-index: no abre contexto
+ * de apilamiento.
+ */
+.ui-dg-table.is-flex { display: block; }
+.ui-dg-table.is-flex > :is(thead, tbody, tfoot) { display: block; }
+.ui-dg-table.is-flex > thead { position: sticky; top: 0; z-index: 5; }
+.ui-dg-table.is-flex > tfoot { position: sticky; bottom: 0; z-index: 5; }
+.ui-dg-table.is-flex tr { display: flex; }
+:where(.ui-dg-table.is-flex > tbody > tr) { position: relative; }
+.ui-dg-table.is-flex :is(th, td) { display: flex; flex: none; align-items: center; }
+.ui-dg-table.is-flex :is(.ui-dg-vspacer, .ui-dg-empty) { flex: 1 1 auto; min-width: 0; }
+.ui-dg-table.is-flex .ui-dg-empty { justify-content: center; }
+.ui-dg-table.is-flex .ui-dg-cell { min-width: 0; max-width: 100%; white-space: nowrap; }
+.ui-dg-spacer { padding: 0 !important; border-right: 0 !important; }
+.ui-dg-vspacer { padding: 0; border: 0; }
+/*
+ * Esqueleto mientras el scroll no se ha pintado (scrollSettleDelay): una barra redondeada por fila y por columna. Es un
+ * fondo liso recortado por una máscara SVG de una fila (--dg-skel-mask, en coordenadas de la tabla) que se repite en
+ * vertical; los huecos de columnas la desplazan con --dg-skel-x.
+ */
+.is-settling .ui-dg-vspacer, .is-settling .ui-dg-spacer {
+	background: var(--line);
+	-webkit-mask-image: var(--dg-skel-mask);
+	mask-image: var(--dg-skel-mask);
+	-webkit-mask-size: var(--dg-skel-w) var(--dg-skel-h);
+	mask-size: var(--dg-skel-w) var(--dg-skel-h);
+	-webkit-mask-position: var(--dg-skel-x, 0px) 0;
+	mask-position: var(--dg-skel-x, 0px) 0;
+	-webkit-mask-repeat: repeat-y;
+	mask-repeat: repeat-y;
+	animation: ui-dg-skeleton 1.1s ease-in-out infinite alternate;
+}
+@keyframes ui-dg-skeleton { from { opacity: 0.55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .is-settling .ui-dg-vspacer, .is-settling .ui-dg-spacer { animation: none; } }
+
+/* anclado de columnas (sticky): izquierda, derecha y la esquina con la cabecera */
+.ui-dg-td.is-range-host:not(.is-pinned) { position: relative; }
+.ui-dg-th.is-pinned, .ui-dg-td.is-pinned { position: sticky; z-index: 3; }
+.ui-dg-th.is-pinned { top: 0; z-index: 5; }
+.ui-dg-tf .ui-dg-td.is-pinned { z-index: 4; }
+/* El separador vive dentro de la columna fija (no en un box-shadow hacia fuera): así no tapa el borde de un rango que llega hasta aquí. */
+.is-edge-left { border-right-color: var(--line-strong); }
+.is-edge-right { box-shadow: inset 1px 0 0 var(--line-strong); }
+
+/* columna de sistema (número de fila / checkbox) */
+.ui-dg-sys { padding: 0; }
+.ui-dg-sysbox { box-sizing: border-box; display: flex; align-items: center; justify-content: flex-end; height: 100%; padding: 0 12px; }
+.ui-dg-head-btn.is-static { cursor: default; }
+.ui-dg-head-btn.is-static:hover { background: none; color: inherit; }
+
+/* alineación */
+.ui-dg-th.is-right .ui-dg-head-btn, .ui-dg-td.is-right { justify-content: flex-end; text-align: right; }
+.ui-dg-th.is-center .ui-dg-head-btn, .ui-dg-td.is-center { justify-content: center; text-align: center; }
+
+/* filas */
+.ui-dg-table.no-hover .ui-dg-row:hover .ui-dg-td { background: var(--surface); }
+.ui-dg-row.is-zebra .ui-dg-td { background: color-mix(in oklch, var(--ink) 2.5%, var(--surface)); }
+.ui-dg-empty { padding: 28px 12px; text-align: center; color: var(--ink-3); }
+
+/* árbol: expansor + sangría en la columna del árbol */
+.ui-dg-tree-cell { position: relative; display: flex; align-items: center; min-width: 0; }
+.ui-dg-tree-indent { display: inline-block; flex: none; }
+.ui-dg-tree-spacer { display: inline-block; flex: none; width: 14px; margin-right: 3px; }
+.ui-dg-tree-toggle { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 14px; height: 14px; margin-right: 3px; border-radius: 4px; color: var(--ink-3); cursor: pointer; }
+.ui-dg-tree-toggle:hover { background: var(--hover-2); color: var(--ink); }
+.ui-dg-tree-toggle:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+.ui-dg-tree-toggle svg { transition: transform 150ms; }
+.ui-dg-tree-toggle.is-open svg { transform: rotate(90deg); }
+.ui-dg-tree-body { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.ui-dg-tree-add { all: unset; box-sizing: border-box; position: absolute; inset-inline-end: 0; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 6px; color: var(--ink-3); background: var(--surface); box-shadow: var(--shadow-hairline); cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 100ms; }
+.ui-dg-row:hover .ui-dg-tree-add, .ui-dg-row:focus-within .ui-dg-tree-add { opacity: 1; pointer-events: auto; }
+.ui-dg-tree-add:hover { color: var(--accent); }
+@media (hover: none) { .ui-dg-tree-add { display: none; } }
+
+/* edición en línea (modo texto) */
+.ui-dg-td[tabindex]:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.ui-dg-td.is-editing { padding: 0; overflow: hidden; }
+/* El anillo va en el propio input (inset) y el alto es el de la celda menos su borde inferior: nada sobresale. */
+.ui-dg-edit { all: unset; display: block; box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; height: calc(var(--dg-row-h, 35px) - 1px); padding: 0 12px; font: inherit; color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 2px var(--accent); overflow: hidden; text-overflow: ellipsis; }
+.ui-dg-td.is-editing .ui-dg-tree-cell { padding-left: 12px; }
+.ui-dg-tree-cell .ui-dg-edit { padding: 0 8px; }
+
+/* contenido de la celda: el recorte con elipsis vive aquí para que la celda host pueda dejar salir su rango */
+.ui-dg-cell { overflow: hidden; text-overflow: ellipsis; }
+
+/* selección de celdas: el rango es un div absoluto dentro de su celda superior izquierda */
+.ui-dg-table.is-selectable { user-select: none; -webkit-user-select: none; }
+.ui-dg-table.is-selectable .ui-dg-edit { user-select: text; -webkit-user-select: text; }
+.ui-dg-td.is-range-host { overflow: visible; }
+/* Una host anclada es sticky y forma su propio contexto de apilado: sin subirla, las anclas de las filas siguientes (mismo z-index, después en el DOM) taparían su rango. Sigue bajo la cabecera (5). */
+.ui-dg-td.is-pinned.is-range-host { z-index: 4; }
+.ui-dg-range { position: absolute; z-index: 1; box-sizing: border-box; pointer-events: none; background: color-mix(in oklch, var(--accent) 14%, transparent); border: 1px solid var(--accent); }
+.ui-dg-range.is-open-left { border-left-width: 0; }
+.ui-dg-range.is-open-right { border-right-width: 0; }

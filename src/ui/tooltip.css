@@ -1,0 +1,15 @@
+.ui-tooltip {
+	z-index: 60;
+	max-width: 240px;
+	padding: 4px 8px;
+	border-radius: 8px;
+	background: var(--tooltip-bg);
+	color: var(--tooltip-fg);
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.4;
+	pointer-events: none;
+	transform-origin: var(--kb-tooltip-content-transform-origin);
+}
+.ui-tooltip[data-expanded] { animation: ui-pop-in 120ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+.ui-tooltip[data-closed] { animation: ui-pop-out 80ms ease-in both; }

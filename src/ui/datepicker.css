@@ -1,0 +1,80 @@
+/* DatePicker — campo con borde hairline (como .ui-input) + desplegable */
+.ui-dtp { width: 240px; }
+.ui-dtp[data-disabled] { opacity: 0.5; }
+.ui-dtp-field {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	width: 100%;
+	height: 32px;
+	padding: 0 3px 0 0;
+	border: 1px solid var(--line-strong);
+	border-radius: 8px;
+	background: var(--field);
+	transition: border-color 150ms, box-shadow 150ms;
+}
+.ui-dtp-field:focus-within { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.ui-dtp-field[data-invalid] { border-color: var(--red); }
+.ui-dtp-field[data-invalid]:focus-within { box-shadow: 0 0 0 1px var(--red); }
+.ui-dtp-input {
+	flex: 1;
+	min-width: 0;
+	height: 100%;
+	padding: 0 6px 0 8px;
+	border: 0;
+	background: transparent;
+	color: var(--ink);
+	font: inherit;
+	font-size: 12px;
+	font-weight: 500;
+	outline: none;
+}
+.ui-dtp-input::placeholder { color: var(--ink-3); }
+.ui-dtp-btn {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	border: 0;
+	border-radius: 5px;
+	background: transparent;
+	color: var(--ink-3);
+	cursor: pointer;
+	transition: background-color 150ms, color 150ms;
+}
+.ui-dtp-btn:hover:not(:disabled) { background: var(--hover-2); color: var(--ink); }
+.ui-dtp-btn:disabled { cursor: default; }
+.ui-dtp-spin { display: flex; flex-direction: column; align-self: stretch; border-right: 1px solid var(--line-strong); }
+.ui-dtp-spin button { display: grid; flex: 1; place-items: center; width: 18px; padding: 0; border: 0; background: transparent; color: var(--ink-3); cursor: pointer; }
+.ui-dtp-spin button:hover:not(:disabled) { color: var(--accent); }
+.ui-dtp-up { transform: rotate(180deg); }
+
+.ui-dtp-panel { width: max-content; min-width: 0; max-width: none; padding: 4px; border-radius: 10px; }
+.ui-dtp-tabs { display: flex; margin: 0 0 4px; border-bottom: 1px solid var(--line); }
+.ui-dtp-tab {
+	flex: 1;
+	padding: 6px;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	background: none;
+	color: var(--ink-3);
+	font: inherit;
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+}
+.ui-dtp-tab[data-active] { color: var(--accent-ink); border-bottom-color: var(--accent); }
+
+.ui-dtp-body[data-inline] { display: flex; align-items: flex-start; gap: 8px; }
+.ui-dtp-body[data-inline] > * { flex: none; }
+
+.ui-dtp-actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 4px; padding: 6px 4px 2px; border-top: 1px solid var(--line); }
+.ui-dtp-action { padding: 4px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; color: var(--ink); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; transition: background-color 120ms; }
+.ui-dtp-action:hover:not(:disabled) { background: var(--hover-2); }
+.ui-dtp-action[data-variant='primary'] { border-color: var(--accent); background: var(--accent); color: #fff; }
+.ui-dtp-action[data-variant='primary']:hover:not(:disabled) { background: var(--accent-ink); }
+.ui-dtp-action:disabled { opacity: 0.4; cursor: default; }

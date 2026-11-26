@@ -1,0 +1,61 @@
+/* Card — superficie con regiones header / body / footer (bordes `line` entre ellas) */
+.ui-card {
+	box-sizing: border-box;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 10px;
+	background: var(--surface);
+	box-shadow: var(--shadow-card);
+	color: var(--ink);
+}
+
+.ui-card-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 10px 12px;
+	border-bottom: 1px solid var(--line);
+}
+.ui-card-title {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.5;
+	color: var(--ink);
+}
+.ui-card-action {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 6px;
+	margin-left: auto;
+	font-size: 12px;
+	color: var(--ink-3);
+}
+
+.ui-card-body {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 12px;
+	font-size: 12.5px;
+	line-height: 1.5;
+	color: var(--ink-2);
+}
+
+.ui-card-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 8px 12px;
+	font-size: 12px;
+	color: var(--ink-3);
+}
+/* Cada región separada de la anterior por una sola línea */
+.ui-card-body + .ui-card-footer,
+.ui-card-header + .ui-card-footer { border-top: 1px solid var(--line); }

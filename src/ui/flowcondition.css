@@ -1,0 +1,47 @@
+/* FlowCondition — filas If / and con fichas desplegables */
+.ui-flow-condition { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; }
+.ui-flow-rule { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+.ui-flow-handle { flex: none; color: var(--ink-3); opacity: 0.7; }
+.ui-flow-keyword { width: 28px; font-size: 12.5px; color: var(--ink-2); }
+.ui-flow-is { font-size: 12.5px; color: var(--ink-2); }
+
+.ui-flow-source {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	height: 24px;
+	padding: 0 6px;
+	border-radius: 6px;
+	background: var(--surface);
+	box-shadow: var(--shadow-btn);
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--ink);
+}
+.ui-flow-source-icon { display: inline-flex; color: var(--ink-2); }
+
+.ui-flow-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	height: 24px;
+	min-width: 0;
+	max-width: 100%;
+	padding: 0 6px;
+	border: 0;
+	border-radius: 6px;
+	background: var(--field);
+	font: inherit;
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--ink);
+	cursor: pointer;
+	transition: background-color 100ms;
+}
+.ui-flow-chip:hover,
+.ui-flow-chip[aria-expanded='true'] { background: var(--hover-2); }
+.ui-flow-chip:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 1px; }
+.ui-flow-chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-flow-chip-chevron { flex: none; color: var(--ink-3); }
+.ui-flow-chip-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; }
+.ui-flow-chip-tag { flex: none; font-size: 11px; color: var(--ink-3); }

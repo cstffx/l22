@@ -1,0 +1,35 @@
+/* Badge: un único tono base por color; fondo, texto y borde se derivan con
+   color-mix() contra los tokens del tema, así se adapta a claro y oscuro. */
+.ui-badge {
+	--badge-base: var(--ink-3);
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	max-width: 100%;
+	height: 22px;
+	padding: 0 8px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	white-space: nowrap;
+	color: color-mix(in oklch, var(--badge-base) 62%, var(--ink));
+	background: color-mix(in oklch, var(--badge-base) 16%, var(--surface));
+	box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--badge-base) 28%, var(--surface));
+}
+.ui-badge[data-size='sm'] { height: 18px; padding: 0 6px; font-size: 11px; }
+.ui-badge[data-size='md'] { height: 26px; padding: 0 10px; font-size: 13px; }
+
+.ui-badge-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--badge-base); }
+
+.ui-badge[data-color='amber'] { --badge-base: oklch(0.76 0.13 70); }
+.ui-badge[data-color='lime'] { --badge-base: oklch(0.77 0.16 122); }
+.ui-badge[data-color='yellow'] { --badge-base: oklch(0.8 0.15 101); }
+.ui-badge[data-color='purple'] { --badge-base: oklch(0.62 0.18 293); }
+.ui-badge[data-color='orange'] { --badge-base: oklch(0.71 0.16 48); }
+.ui-badge[data-color='cyan'] { --badge-base: oklch(0.72 0.1 221); }
+.ui-badge[data-color='red'] { --badge-base: oklch(0.64 0.19 27); }
+.ui-badge[data-color='magenta'] { --badge-base: oklch(0.66 0.21 323); }
+.ui-badge[data-color='green'] { --badge-base: oklch(0.7 0.13 162); }
+.ui-badge[data-color='pink'] { --badge-base: oklch(0.67 0.19 3); }
+.ui-badge[data-color='accent'] { --badge-base: var(--accent); }

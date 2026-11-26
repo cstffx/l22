@@ -1,0 +1,77 @@
+/* Calendar — mes de 7 columnas, día seleccionado en acento */
+.ui-calendar { box-sizing: border-box; width: 224px; padding: 4px; color: var(--ink); user-select: none; }
+.ui-calendar-head { display: flex; align-items: center; justify-content: space-between; height: 28px; margin-bottom: 2px; }
+.ui-calendar-title {
+	padding: 3px 8px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-size: 12.5px;
+	font-weight: 500;
+	text-transform: capitalize;
+	cursor: pointer;
+	transition: background-color 150ms;
+}
+.ui-calendar-title:hover:not(:disabled) { background: var(--hover-2); }
+.ui-calendar-title:disabled { cursor: default; }
+.ui-calendar-title:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ui-calendar-cells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.ui-calendar-cell {
+	height: 48px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--ink);
+	font: inherit;
+	font-size: 12px;
+	text-transform: capitalize;
+	cursor: pointer;
+	transition: background-color 120ms, color 120ms;
+}
+.ui-calendar-cell:hover { background: var(--hover-2); }
+.ui-calendar-cell[data-outside] { color: var(--ink-3); }
+.ui-calendar-cell[data-today] { box-shadow: inset 0 0 0 1px var(--line-strong); }
+.ui-calendar-cell[data-selected] { background: var(--accent); color: #fff; box-shadow: none; }
+.ui-calendar-cell:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ui-calendar-nav {
+	display: grid;
+	place-items: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--ink-2);
+	cursor: pointer;
+	transition: background-color 150ms, color 150ms;
+}
+.ui-calendar-nav:hover { background: var(--hover-2); color: var(--ink); }
+.ui-calendar-prev svg { transform: rotate(90deg); }
+.ui-calendar-next svg { transform: rotate(-90deg); }
+.ui-calendar-row { display: grid; grid-template-columns: repeat(7, 1fr); }
+.ui-calendar-weekday { display: grid; place-items: center; height: 24px; font-size: 11px; font-weight: 500; color: var(--ink-3); text-transform: capitalize; }
+.ui-calendar-day {
+	display: grid;
+	place-items: center;
+	height: 26px;
+	padding: 0;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--ink);
+	font: inherit;
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+	cursor: pointer;
+	transition: background-color 120ms, color 120ms;
+}
+.ui-calendar-day:hover:not(:disabled) { background: var(--hover-2); }
+.ui-calendar-day[data-outside] { color: var(--ink-3); }
+.ui-calendar-day[data-today] { box-shadow: inset 0 0 0 1px var(--line-strong); }
+.ui-calendar-day[data-selected] { background: var(--accent); color: #fff; box-shadow: none; }
+.ui-calendar-day[data-selected]:hover:not(:disabled) { background: var(--accent-ink); }
+.ui-calendar-day:disabled { opacity: 0.35; cursor: default; }
+.ui-calendar-nav:focus-visible, .ui-calendar-day:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }

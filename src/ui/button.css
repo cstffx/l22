@@ -1,0 +1,41 @@
+.ui-button {
+	--filled-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font: inherit;
+	font-weight: 500;
+	border: 0;
+	cursor: pointer;
+	user-select: none;
+	border-radius: 999px;
+	transition:
+		transform 150ms ease-out,
+		background-color 150ms ease-out,
+		opacity 150ms ease-out;
+}
+.ui-button:active { transform: scale(0.96); }
+.ui-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ui-button[data-disabled] { opacity: 0.5; pointer-events: none; }
+
+/* variantes */
+.ui-button[data-variant='primary'] { background: var(--ink); color: var(--canvas); box-shadow: var(--filled-shadow); }
+.ui-button[data-variant='primary']:hover { opacity: 0.9; }
+.ui-button[data-variant='secondary'] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-btn); }
+.ui-button[data-variant='secondary']:hover { background: var(--inset); }
+.ui-button[data-variant='secondary'][aria-expanded='true'] { background: var(--hover); }
+.ui-button[data-variant='ghost'] { background: var(--hover-2); color: var(--ink); }
+.ui-button[data-variant='ghost']:hover { background: var(--line-strong); }
+.ui-button[data-variant='accent'] { background: var(--accent); color: #fff; box-shadow: var(--filled-shadow); }
+.ui-button[data-variant='accent']:hover { background: var(--accent-ink); }
+.ui-button[data-variant='success'] { background: var(--green); color: #fff; box-shadow: var(--filled-shadow); }
+.ui-button[data-variant='success']:hover { filter: brightness(0.95); }
+.ui-button[data-variant='danger'] { background: var(--red); color: #fff; box-shadow: var(--filled-shadow); }
+.ui-button[data-variant='danger']:hover { filter: brightness(0.95); }
+.ui-button[data-variant='quiet'] { background: transparent; color: var(--ink); }
+.ui-button[data-variant='quiet']:hover { background: var(--hover); }
+
+/* tamaños */
+.ui-button[data-size='xs'] { height: 28px; padding: 0 10px; font-size: 12px; font-weight: 400; line-height: 1; gap: 4px; }
+.ui-button[data-size='sm'] { height: 27px; padding: 0 12px; font-size: 13px; line-height: 1; gap: 6px; }
+.ui-button[data-size='md'] { padding: 9px 16px; font-size: 14px; line-height: 1; gap: 8px; }
