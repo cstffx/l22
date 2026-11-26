@@ -19,7 +19,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: false,
     target: 'esnext',
     lib: {
       entry: path.resolve(root, 'src/index.ts'),

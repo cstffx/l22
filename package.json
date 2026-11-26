@@ -15,8 +15,10 @@
     "./l22.css": "./dist/l22.css",
     "./package.json": "./package.json"
   },
-  "files": ["dist"],
-  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "sideEffects": ["**/*.css"],
   "scripts": {
     "build": "vite build",
     "check": "tsc --noEmit -p ./tsconfig.json",
@@ -47,5 +49,16 @@
     "vite": "^8.0.16",
     "vite-plugin-dts": "^5.1.2",
     "vitest": "^5.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cstffx/l22.git"
+  },
+  "homepage": "https://github.com/cstffx/l22#readme",
+  "bugs": {
+    "url": "https://github.com/cstffx/l22/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

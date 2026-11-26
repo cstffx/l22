@@ -1,0 +1,26 @@
+name: Publish
+
+# Se publica al empujar una etiqueta vX.Y.Z (p. ej. `npm version patch && git push --follow-tags`).
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: La etiqueta debe coincidir con la versión de package.json
+        run: |
+          v="$(node -p "require('./package.json').version")"
+          [ "refs/tags/v$v" = "$GITHUB_REF" ] || { echo "Etiqueta $GITHUB_REF != v$v"; exit 1; }
+      - run: bun install --frozen-lockfile
+      # prepublishOnly ejecuta check, test y build antes de subir
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
