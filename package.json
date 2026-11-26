@@ -1,6 +1,6 @@
 {
   "name": "l22",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Sistema de diseño UI para SolidJS",
   "type": "module",
   "main": "./dist/index.js",
@@ -18,7 +18,9 @@
   "files": [
     "dist"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "build": "vite build",
     "check": "tsc --noEmit -p ./tsconfig.json",
